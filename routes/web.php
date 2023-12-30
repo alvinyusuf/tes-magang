@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationsController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-})->middleware('auth');
+Route::get('/', [HomeController::class, 'index'])->middleware('auth');
 
 Route::get('/register', [AuthenticationsController::class, 'indexRegister']);
 Route::post('/register', [AuthenticationsController::class, 'register']);
