@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,5 @@ Route::post('/register', [AuthenticationsController::class, 'register']);
 Route::get('/login', [AuthenticationsController::class, 'indexLogin'])->middleware('guest')->name('login');
 Route::post('/login', [AuthenticationsController::class, 'login']);
 Route::post('/logout', [AuthenticationsController::class, 'logout']);
+
+Route::resource('/dashboard', DashboardController::class);

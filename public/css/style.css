@@ -633,7 +633,11 @@ h6 {
 
   #main,
   #footer {
-    margin-left: 300px;
+    margin-left: 0px;
+  }
+
+  .sidebar {
+    left: -300px;
   }
 }
 
@@ -647,11 +651,11 @@ h6 {
 
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 0;
+    margin-left: 300px;
   }
 
   .toggle-sidebar .sidebar {
-    left: -300px;
+    left: 0px;
   }
 }
 
