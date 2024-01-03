@@ -47,6 +47,16 @@
                     </div>
 
                     <div class="col-12">
+                      <label class="col-sm-2 col-form-label">Role</label>
+                      <div class="col-sm-10">
+                        <select class="form-select" aria-label="Default select example" name="role">
+                          <option value="member" selected>Member</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
                       <label for="password" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" required>
                       <div class="invalid-feedback">Please enter your password!</div>

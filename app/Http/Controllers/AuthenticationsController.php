@@ -21,6 +21,7 @@ class AuthenticationsController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:255',
             'username' => 'required|unique:users|max:255',
+            'role' => 'required',
             'password' => 'required',
         ]);
         $validated['password'] = Hash::make($validated['password']);

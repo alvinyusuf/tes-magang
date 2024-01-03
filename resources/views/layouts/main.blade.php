@@ -34,9 +34,6 @@
 <body>
   @if (!(Request::is('login') || Request::is('register')))
     @include('partials.header')
-    @if (Request::is('dashboard'))  
-      @include('partials.sidebar')
-    @endif
   @endif
   
   @yield('content')

@@ -2,31 +2,35 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/" class="logo d-flex align-items-center">
-        <img src="{{ asset('./img/logo.png') }}" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
-      </a>
       @if (Request::is('dashboard'))
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+        <a href="/dashboard" class="logo d-flex align-items-center">
+          <img src="{{ asset('./img/logo.png') }}" alt="">
+          <span class="d-none d-lg-block">NiceAdmin</span>
+        </a>
+      @else
+        <a href="/home" class="logo d-flex align-items-center">
+          <img src="{{ asset('./img/logo.png') }}" alt="">
+          <span class="d-none d-lg-block">NiceAdmin</span>
+        </a>
       @endif
     </div>
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+      <form class="search-form d-flex align-items-center">
+        @csrf
+        <input type="text" name="search" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
 
+    @if (Request::is('dashboard'))    
+    <span><a href="/kategori-dashboard">Kategori</a></span>
+    @else
+    <span><a href="/kategori">Kategori</a></span>
+    @endif
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -43,6 +47,18 @@
               <hr class="dropdown-divider">
             </li>
             
+            @if (auth()->user()->role === 'admin')
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="/dashboard">
+                  <i class="bi bi-grid"></i>
+                  <span>Admin Dashboard</span>
+                </a>
+              </li>   
+              <li>
+                <hr class="dropdown-divider">
+              </li> 
+            @endif
+
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/dashboard">
                 <i class="bi bi-grid"></i>
