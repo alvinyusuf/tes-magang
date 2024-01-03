@@ -8,79 +8,54 @@ use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('category.index', [
+            'categories' => $categories,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function indexDashboard()
     {
-        //
+        $categories = Category::all();
+        return view('category.index', [
+            'categories' => $categories,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'kategori' => 'required',
+        ]);
+
+        $store = Category::create($validatedData);
+        if ($store) {
+            return redirect('/kategori')->with('success', 'Kategori baru berhasil ditambahkan');
+            exit;
+        }
+        return redirect('/kategori')->with('fail', 'Kategori baru gagal ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category, $id)
     {
-        //
+        
+        $update = $category->find($id)->update(['kategori' => $request->kategori]);
+        if ($update) {
+            return redirect('/kategori')->with('success', 'Kategori baru berhasil diedit');
+            exit;
+        }
+        return redirect('/kategori')->with('fail', 'Kategori baru gagal diedit');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
+    public function destroy(Category $category, $id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        //
+        $destroy = $category->find($id)->delete();
+        if ($destroy) {
+            return redirect('/kategori')->with('success', 'Kategori baru berhasil dihapus');
+            exit;
+        }
+        return redirect('/kategori')->with('fail', 'Kategori baru gagal dihapus');
     }
 }
